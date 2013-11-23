@@ -13,8 +13,28 @@
 
 	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
 		<property name="realm" ref="myRealm" />
+		<property name="sessionMode" value="native"/>
+		<property name="sessionManager" ref="sessionManager"/>
 		<property name="cacheManager" ref="cacheManager" />
 	</bean>
+	
+	<!-- 
+	globalSessionTimeout：session 时间
+	# 3,600,000 milliseconds = 1 hour
+	 -->
+	<bean id="sessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
+	    <property name="sessionDAO" ref="sessionDAO"/>
+	    <property name="globalSessionTimeout" value="3600000"/>
+	    <property name="sessionValidationScheduler" ref="sessionValidationScheduler"/>
+	    <property name="sessionValidationSchedulerEnabled" value="true"/>
+	</bean>
+	
+	<bean id="sessionDAO" class="org.apache.shiro.session.mgt.eis.EnterpriseCacheSessionDAO"/>
+	
+	<bean id="sessionValidationScheduler" class="org.apache.shiro.session.mgt.ExecutorServiceSessionValidationScheduler">
+	    <property name="interval" value="1800000"/>
+	</bean>
+	
 	
 	<bean id="myRealm" class="com.controller.MyRealm"/>
 	

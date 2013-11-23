@@ -6,16 +6,19 @@
 	overflowToDisk:内存不足时，是否启用磁盘缓存。
 	diskPersistent： 是否在磁盘上持久化。指重启jvm后，数据是否有效。默认为false.
 	diskExpiryThreadIntervalSeconds： 对象检测线程运行时间间隔。标识对象状态的线程多长时间运行一次。 
+	memoryStoreEvictionPolicy：缓存满了之后的淘汰算法。
+	
 -->
 
 <ehcache updateCheck="false" name="shiroCache">
+   <diskStore path="F:/ehcache-test" /> 
    <defaultCache
-            maxElementsInMemory="10000" 
+            maxElementsInMemory="5" 
             eternal="false"
             timeToIdleSeconds="120"
             timeToLiveSeconds="120"
-            overflowToDisk="false"
+            overflowToDisk="true"
             diskPersistent="false"
-            diskExpiryThreadIntervalSeconds="120"
+            diskExpiryThreadIntervalSeconds="5"
             />
 </ehcache>
